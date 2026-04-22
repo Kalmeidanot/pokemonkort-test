@@ -1,60 +1,151 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f7f7fb;
-  color: #222;
+  background: #05070b;
+  color: #f5f7fb;
 }
 
 .hero {
   text-align: center;
-  padding: 4rem 1rem;
-  background: linear-gradient(135deg, #ffcb05, #3b4cca);
-  color: white;
+  padding: 3rem 1rem 2.5rem;
+  background:
+    linear-gradient(rgba(4, 7, 14, 0.65), rgba(4, 7, 14, 0.78)),
+    linear-gradient(135deg, #0d1b3d, #060b16);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logo-title {
+  margin: 0 0 1rem;
+  font-size: 3.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-blue {
+  color: #37a7ff;
+  text-shadow: 0 0 10px rgba(55, 167, 255, 0.4);
+}
+
+.logo-white {
+  color: #ffffff;
+}
+
+.pokeball-o {
+  width: 0.95em;
+  height: 0.95em;
+  display: inline-block;
+  margin: 0 0.05em 0 0.03em;
+  border-radius: 50%;
+  position: relative;
+  top: 0.05em;
+  background: linear-gradient(to bottom, #e53935 0 48%, #ffffff 48% 100%);
+  border: 3px solid #111111;
+  box-sizing: border-box;
+}
+
+.pokeball-o::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: 100%;
+  height: 3px;
+  background: #111111;
+  transform: translate(-50%, -50%);
+}
+
+.pokeball-o::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.28em;
+  height: 0.28em;
+  background: #ffffff;
+  border: 3px solid #111111;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+}
+
+.hero p {
+  margin: 0 auto 1.5rem;
+  max-width: 720px;
+  color: #d9e4f2;
+  font-size: 1.05rem;
 }
 
 .hero button,
 .card-item button {
-  background: #e53935;
+  background: linear-gradient(180deg, #1238b8, #081b6a);
   color: white;
-  border: none;
-  padding: 0.8rem 1.2rem;
-  border-radius: 8px;
+  border: 1px solid rgba(95, 145, 255, 0.45);
+  padding: 0.9rem 1.4rem;
+  border-radius: 999px;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 0.95rem;
+  box-shadow: 0 8px 20px rgba(10, 36, 125, 0.35);
+}
+
+.hero button:hover,
+.card-item button:hover {
+  filter: brightness(1.08);
 }
 
 .products {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem 1rem 4rem;
+  padding: 2.2rem 1rem 4rem;
 }
 
 .products h2 {
-  text-align: center;
-  margin-bottom: 2rem;
+  text-align: left;
+  margin-bottom: 1.4rem;
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.75rem;
 }
 
 .card-item {
-  background: white;
+  background: linear-gradient(180deg, #0b1018, #0a0e15);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 14px;
-  padding: 1rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: 1.1rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.card-item h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+
+.card-item p {
+  margin: 0.35rem 0;
+  color: #c9d4e0;
 }
 
 .price {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: bold;
+  color: #37a7ff;
   margin: 1rem 0;
 }
 
 footer {
   text-align: center;
   padding: 1.5rem;
-  background: #111;
-  color: white;
+  background: #030509;
+  color: #91a3ba;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
