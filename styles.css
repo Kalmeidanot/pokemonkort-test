@@ -149,3 +149,243 @@ footer {
   color: #91a3ba;
   border-top: 1px solid rgba(255,255,255,0.08);
 }
+
+.set-showcase {
+  padding: 4rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.set-banner {
+  background: linear-gradient(180deg, #0d1b3d, #060b16);
+  border: 1px solid rgba(95, 145, 255, 0.35);
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(10, 36, 125, 0.4);
+}
+
+.set-logo {
+  max-width: 340px;
+  width: 100%;
+  display: block;
+  margin: 0 auto 1.4rem;
+}
+
+.set-tagline {
+  color: #37a7ff;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.set-banner {
+  display: block;
+  text-decoration: none;
+}
+
+.set-banner:hover {
+  filter: brightness(1.08);
+}
+
+/* Set-side */
+
+.hero--small {
+  padding: 1.6rem 1rem;
+}
+
+.hero--small .logo-title {
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.back-link {
+  display: inline-block;
+  color: #37a7ff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.set-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.set-page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.set-page-logo {
+  max-width: 300px;
+  width: 100%;
+}
+
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.pokemon-card {
+  display: block;
+  text-decoration: none;
+  background: linear-gradient(180deg, #0d1b3d, #060b16);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.6rem;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.pokemon-card:hover {
+  border-color: rgba(55, 167, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.pokemon-card img {
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+}
+
+.pokemon-card-name {
+  color: #f5f7fb;
+  font-size: 0.78rem;
+  margin: 0.5rem 0 0.1rem;
+  font-weight: 600;
+}
+
+.pokemon-card-number {
+  color: #91a3ba;
+  font-size: 0.72rem;
+  margin: 0;
+}
+
+.loading-text,
+.error-text {
+  color: #91a3ba;
+  grid-column: 1 / -1;
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Kortdetaljside */
+
+.card-detail {
+  display: flex;
+  gap: 2.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+  align-items: flex-start;
+}
+
+.card-detail-image {
+  flex-shrink: 0;
+  width: 63mm;
+  max-width: 100%;
+  text-align: center;
+}
+
+.card-detail-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+}
+
+.card-detail-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-detail-name {
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin: 0 0 0.75rem;
+}
+
+.card-hp {
+  color: #c9d4e0;
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
+}
+
+.card-hp strong {
+  color: #37a7ff;
+}
+
+.card-types {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.type-badge {
+  background: rgba(55, 167, 255, 0.15);
+  border: 1px solid rgba(55, 167, 255, 0.4);
+  color: #37a7ff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.card-attacks h3 {
+  color: #91a3ba;
+  font-size: 0.85rem;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.attack {
+  background: linear-gradient(180deg, #0d1b3d, #060b16);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.attack-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.attack-name {
+  color: #f5f7fb;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.attack-damage {
+  color: #37a7ff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.attack-text {
+  color: #c9d4e0;
+  font-size: 0.85rem;
+  margin: 0.4rem 0 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .card-detail {
+    flex-direction: column;
+  }
+}

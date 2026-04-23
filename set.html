@@ -3,31 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KortKammer</title>
+  <title>Scarlet &amp; Violet—151 – KortKammer</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <header class="hero">
+  <header class="hero hero--small">
     <h1 class="logo-title">
       <span class="logo-blue">K</span><span class="pokeball-o"></span><span class="logo-blue">rt</span><span class="logo-white">Kammer</span>
     </h1>
-
-    <p>Pokémon-inspirert testside for samlekort, produkter og visuell profil</p>
-
-    <button id="cta-btn">Se kort</button>
+    <a href="index.html" class="back-link">← Tilbake</a>
   </header>
 
   <main>
-    <section class="set-showcase" id="sv151">
-      <a href="set.html" class="set-banner">
+    <section class="set-page">
+      <div class="set-page-header">
         <img
           src="https://images.pokemontcg.io/sv3pt5/logo.png"
           alt="Scarlet & Violet—151"
-          class="set-logo"
+          class="set-page-logo"
         />
-        <p class="set-tagline">207 kort · Klikk for å se alle</p>
-      </a>
+      </div>
+      <div id="card-grid" class="pokemon-grid">
+        <p class="loading-text">Laster kort...</p>
+      </div>
     </section>
   </main>
 
@@ -35,5 +34,6 @@
     <p>© 2026 KortKammer</p>
   </footer>
 
+  <script src="set.js"></script>
 </body>
 </html>
