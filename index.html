@@ -4,30 +4,64 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KortKammer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <header class="hero">
-    <h1 class="logo-title">
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">
       <span class="logo-blue">K</span><span class="pokeball-o"></span><span class="logo-blue">rt</span><span class="logo-white">Kammer</span>
-    </h1>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Hjem</a></li>
+      <li><a href="set.html">Alle kort</a></li>
+      <li><a href="collection.html">Samlinger</a></li>
+      <li><a href="wishlist.html">Ønskeliste</a></li>
+      <li><a href="#">Om oss</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" title="Tema" aria-label="Bytt tema">🌙</button>
+      <button class="nav-icon-btn" title="Profil" aria-label="Profil">👤</button>
+    </div>
+  </nav>
 
-    <p>Pokémon-inspirert testside for samlekort, produkter og visuell profil</p>
-
-    <button id="cta-btn">Se kort</button>
-  </header>
-
-  <main>
-    <section class="set-showcase" id="sv151">
-      <a href="set.html" class="set-banner">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Oppdag, saml og organiser dine favorittkort</h1>
+        <p>Pokémon-inspirert nettside for samlekort, produkter og visuell profil.</p>
+        <div class="hero-buttons">
+          <a href="set.html" class="btn btn-primary">Se alle kort</a>
+          <a href="#" class="btn btn-secondary">Om prosjektet</a>
+        </div>
+      </div>
+      <div class="hero-visual">
         <img
           src="https://images.pokemontcg.io/sv3pt5/logo.png"
-          alt="Scarlet & Violet—151"
-          class="set-logo"
+          alt="Scarlet &amp; Violet—151"
         />
-        <p class="set-tagline">207 kort · Klikk for å se alle</p>
-      </a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="sets-section">
+      <div class="sets-inner">
+        <h2 class="sets-section-title">Tilgjengelige sett</h2>
+        <a href="set.html" class="set-card">
+          <div class="set-card-logo">
+            <img src="https://images.pokemontcg.io/sv3pt5/logo.png" alt="Scarlet &amp; Violet—151" />
+          </div>
+          <div class="set-card-info">
+            <p class="set-card-name">Scarlet &amp; Violet—151</p>
+            <p class="set-card-count">207 kort</p>
+            <span class="set-card-cta">Se samling →</span>
+          </div>
+        </a>
+      </div>
     </section>
   </main>
 

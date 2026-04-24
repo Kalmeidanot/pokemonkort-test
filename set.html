@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scarlet &amp; Violet—151 – KortKammer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -15,17 +18,57 @@
     <a href="index.html" class="back-link">← Tilbake</a>
   </header>
 
+  <div class="search-filter-section">
+    <div class="search-filter-inner">
+      <input
+        type="text"
+        id="search-input"
+        class="search-input"
+        placeholder="Søk etter kort..."
+        autocomplete="off"
+      />
+      <div class="type-dropdown" id="type-dropdown" data-value="">
+        <button class="type-dropdown-btn" id="type-dropdown-btn" type="button">
+          <span class="type-dropdown-label">Alle typer</span>
+          <svg class="type-dropdown-arrow" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="type-dropdown-menu" id="type-dropdown-menu">
+          <button class="type-option selected" data-value="" type="button">Alle typer</button>
+          <button class="type-option" data-value="Grass" type="button"><img src="images/types/grass.png" class="type-icon" alt="" aria-hidden="true" /><span>Grass</span></button>
+          <button class="type-option" data-value="Fire" type="button"><img src="images/types/fire.png" class="type-icon" alt="" aria-hidden="true" /><span>Fire</span></button>
+          <button class="type-option" data-value="Water" type="button"><img src="images/types/water.png" class="type-icon" alt="" aria-hidden="true" /><span>Water</span></button>
+          <button class="type-option" data-value="Lightning" type="button"><img src="images/types/lightning.png" class="type-icon" alt="" aria-hidden="true" /><span>Lightning</span></button>
+          <button class="type-option" data-value="Psychic" type="button"><img src="images/types/psychic.png" class="type-icon" alt="" aria-hidden="true" /><span>Psychic</span></button>
+          <button class="type-option" data-value="Fighting" type="button"><img src="images/types/fighting.png" class="type-icon" alt="" aria-hidden="true" /><span>Fighting</span></button>
+          <button class="type-option" data-value="Darkness" type="button"><img src="images/types/dark.png" class="type-icon" alt="" aria-hidden="true" /><span>Dark</span></button>
+          <button class="type-option" data-value="Metal" type="button"><img src="images/types/metal.png" class="type-icon" alt="" aria-hidden="true" /><span>Metal</span></button>
+          <button class="type-option" data-value="Dragon" type="button"><img src="images/types/dragon.png" class="type-icon" alt="" aria-hidden="true" /><span>Dragon</span></button>
+          <button class="type-option" data-value="Colorless" type="button"><img src="images/types/normal.png" class="type-icon" alt="" aria-hidden="true" /><span>Normal</span></button>
+          <button class="type-option" data-value="Fairy" type="button"><img src="images/types/fairy.png" class="type-icon" alt="" aria-hidden="true" /><span>Fairy</span></button>
+        </div>
+      </div>
+      <select id="sort-select" class="sort-select">
+        <option value="">Sortering</option>
+        <option value="number">Nummer</option>
+        <option value="name">Navn A–Å</option>
+      </select>
+      <button id="reset-btn" class="btn-reset">Tilbakestill</button>
+    </div>
+  </div>
+
   <main>
     <section class="set-page">
       <div class="set-page-header">
         <img
           src="https://images.pokemontcg.io/sv3pt5/logo.png"
-          alt="Scarlet & Violet—151"
+          alt="Scarlet &amp; Violet—151"
           class="set-page-logo"
         />
       </div>
       <div id="card-grid" class="pokemon-grid">
-        <p class="loading-text">Laster kort...</p>
+        <p class="loading-text">Laster kort…</p>
       </div>
     </section>
   </main>

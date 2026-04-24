@@ -1,3 +1,2 @@
-document.getElementById("cta-btn").addEventListener("click", () => {
-  document.getElementById("sv151").scrollIntoView({ behavior: "smooth" });
-});
+// Landing page — ingen kortlasting her.
+// Kortvisning og søk/filter ligger i set.js (set.html).

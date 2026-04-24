@@ -1,48 +1,69 @@
+/* =====================
+   Google Fonts
+   ===================== */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+/* =====================
+   CSS Variables
+   ===================== */
+:root {
+  --primary:      #25293C;
+  --primary-hover:#1F1F1F;
+  --sand-dune:    #846C64;
+  --clay:         #E7E2DD;
+  --mist:         #F0ECE7;
+  --surface:      #FFFFFF;
+  --subtle-bg:    #F5F6F3;
+  --soft-panel:   #E7E2DD;
+  --border:       #D6D3D1;
+  --text-primary: #25293C;
+  --text-body:    #4A4A4A;
+  --text-muted:   #6F6F6F;
+
+  --font-heading: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-body:    'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-full: 999px;
+
+  --shadow-sm:        0 1px 3px rgba(37,41,60,0.06), 0 1px 2px rgba(37,41,60,0.04);
+  --shadow-md:        0 4px 12px rgba(37,41,60,0.09), 0 2px 4px rgba(37,41,60,0.05);
+  --shadow-lg:        0 8px 24px rgba(37,41,60,0.11), 0 4px 8px rgba(37,41,60,0.06);
+  --shadow-card-hover:0 12px 32px rgba(132,108,100,0.18), 0 4px 8px rgba(37,41,60,0.08);
+}
+
+/* =====================
+   Reset & Base
+   ===================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #05070b;
-  color: #f5f7fb;
+  font-family: var(--font-body);
+  background: var(--subtle-bg);
+  color: var(--text-body);
+  line-height: 1.6;
 }
 
-.hero {
-  text-align: center;
-  padding: 3rem 1rem 2.5rem;
-  background:
-    linear-gradient(rgba(4, 7, 14, 0.65), rgba(4, 7, 14, 0.78)),
-    linear-gradient(135deg, #0d1b3d, #060b16);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.logo-title {
-  margin: 0 0 1rem;
-  font-size: 3.6rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-}
-
-.logo-blue {
-  color: #37a7ff;
-  text-shadow: 0 0 10px rgba(55, 167, 255, 0.4);
-}
-
-.logo-white {
-  color: #ffffff;
-}
-
+/* =====================
+   Pokeball Logo Icon
+   ===================== */
 .pokeball-o {
-  width: 0.95em;
-  height: 0.95em;
+  width: 0.85em;
+  height: 0.85em;
   display: inline-block;
-  margin: 0 0.05em 0 0.03em;
+  margin: 0 0.04em;
   border-radius: 50%;
   position: relative;
-  top: 0.05em;
+  top: 0.08em;
   background: linear-gradient(to bottom, #e53935 0 48%, #ffffff 48% 100%);
-  border: 3px solid #111111;
+  border: 2px solid var(--primary);
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .pokeball-o::before {
@@ -51,8 +72,8 @@ body {
   left: 50%;
   top: 48%;
   width: 100%;
-  height: 3px;
-  background: #111111;
+  height: 2px;
+  background: var(--primary);
   transform: translate(-50%, -50%);
 }
 
@@ -64,236 +85,734 @@ body {
   width: 0.28em;
   height: 0.28em;
   background: #ffffff;
-  border: 3px solid #111111;
+  border: 2px solid var(--primary);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
 }
 
-.hero p {
-  margin: 0 auto 1.5rem;
-  max-width: 720px;
-  color: #d9e4f2;
-  font-size: 1.05rem;
-}
-
-.hero button,
-.card-item button {
-  background: linear-gradient(180deg, #1238b8, #081b6a);
-  color: white;
-  border: 1px solid rgba(95, 145, 255, 0.45);
-  padding: 0.9rem 1.4rem;
-  border-radius: 999px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 0.95rem;
-  box-shadow: 0 8px 20px rgba(10, 36, 125, 0.35);
-}
-
-.hero button:hover,
-.card-item button:hover {
-  filter: brightness(1.08);
-}
-
-.products {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2.2rem 1rem 4rem;
-}
-
-.products h2 {
-  text-align: left;
-  margin-bottom: 1.4rem;
-  color: #ffffff;
-  font-size: 1.3rem;
-  font-weight: 600;
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.75rem;
-}
-
-.card-item {
-  background: linear-gradient(180deg, #0b1018, #0a0e15);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  padding: 1.1rem;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
-}
-
-.card-item h3 {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-  color: #ffffff;
-  font-size: 1.2rem;
-}
-
-.card-item p {
-  margin: 0.35rem 0;
-  color: #c9d4e0;
-}
-
-.price {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #37a7ff;
-  margin: 1rem 0;
-}
-
-footer {
-  text-align: center;
-  padding: 1.5rem;
-  background: #030509;
-  color: #91a3ba;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.set-showcase {
-  padding: 4rem 1rem;
+/* =====================
+   Navigation
+   ===================== */
+.site-nav {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 64px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.set-banner {
-  background: linear-gradient(180deg, #0d1b3d, #060b16);
-  border: 1px solid rgba(95, 145, 255, 0.35);
-  border-radius: 20px;
-  padding: 2.5rem 3rem;
-  max-width: 560px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0 12px 32px rgba(10, 36, 125, 0.4);
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  letter-spacing: -0.01em;
 }
 
-.set-logo {
-  max-width: 340px;
-  width: 100%;
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
   display: block;
-  margin: 0 auto 1.4rem;
+  padding: 0.4rem 0.85rem;
+  color: var(--text-body);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, color 0.15s;
 }
 
-.set-tagline {
-  color: #37a7ff;
+.nav-links a:hover,
+.nav-links a.active {
+  background: var(--mist);
+  color: var(--primary);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-icon-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.nav-icon-btn:hover {
+  background: var(--mist);
+  border-color: var(--sand-dune);
+  color: var(--primary);
+}
+
+/* =====================
+   Hero (landing page)
+   ===================== */
+.hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 5rem 2rem 4rem;
+}
+
+.hero-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 560px;
+}
+
+.hero-text h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 3.5vw, 2.9rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.hero-text p {
   font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0 0 2rem;
+  max-width: 420px;
+  line-height: 1.65;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.hero-visual {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-visual img {
+  max-width: 320px;
+  width: 100%;
+  filter: drop-shadow(0 8px 24px rgba(37,41,60,0.12));
+}
+
+/* =====================
+   Buttons
+   ===================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
   font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.98);
+  transition: transform 0.08s;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  background: var(--mist);
+  border-color: var(--sand-dune);
+}
+
+.btn-primary.btn-active {
+  background: #5a3d37;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.18), var(--shadow-sm);
+}
+
+.btn-primary.btn-active:hover {
+  background: #4a302a;
+}
+
+.btn-secondary.btn-active {
+  background: var(--soft-panel);
+  border-color: var(--sand-dune);
+  color: var(--sand-dune);
+  font-weight: 600;
+}
+
+.empty-list-msg {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.empty-state-icon {
+  color: var(--border);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.empty-state-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.empty-state-desc {
+  color: var(--text-muted);
+  font-size: 0.875rem;
   margin: 0 0 0.5rem;
 }
 
-.set-banner {
-  display: block;
-  text-decoration: none;
+/* =====================
+   Search & Filter
+   ===================== */
+.search-filter-section {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 2rem;
 }
 
-.set-banner:hover {
-  filter: brightness(1.08);
-}
-
-/* Set-side */
-
-.hero--small {
-  padding: 1.6rem 1rem;
-}
-
-.hero--small .logo-title {
-  font-size: 2.2rem;
-  margin-bottom: 0.8rem;
-}
-
-.back-link {
-  display: inline-block;
-  color: #37a7ff;
-  text-decoration: none;
-  font-size: 0.95rem;
-  margin-top: 0.4rem;
-}
-
-.back-link:hover {
-  text-decoration: underline;
-}
-
-.set-page {
-  max-width: 1200px;
+.search-filter-inner {
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 2rem 1rem 4rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.set-page-header {
-  text-align: center;
-  margin-bottom: 2rem;
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.575rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  background: var(--subtle-bg);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
 }
 
-.set-page-logo {
-  max-width: 300px;
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-input:focus {
+  border-color: var(--sand-dune);
+  box-shadow: 0 0 0 3px rgba(132,108,100,0.12);
+  background: var(--surface);
+}
+
+.filter-select,
+.sort-select {
+  padding: 0.575rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  background: var(--subtle-bg);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.filter-select:focus,
+.sort-select:focus {
+  border-color: var(--sand-dune);
+  background: var(--surface);
+}
+
+.btn-reset {
+  padding: 0.575rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--surface);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.btn-reset:hover {
+  background: var(--mist);
+  border-color: var(--sand-dune);
+  color: var(--primary);
+}
+
+/* =====================
+   Custom Type Dropdown
+   ===================== */
+.type-dropdown {
+  position: relative;
+}
+
+.type-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.575rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  background: var(--subtle-bg);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.type-dropdown-btn:hover,
+.type-dropdown-btn.open {
+  background: var(--surface);
+  border-color: var(--sand-dune);
+}
+
+.type-dropdown-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.type-dropdown-arrow {
+  width: 12px;
+  height: 12px;
+  color: var(--text-muted);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+
+.type-dropdown-btn.open .type-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.type-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  min-width: 170px;
+  overflow: hidden;
+  padding: 0.3rem 0;
+}
+
+.type-dropdown-menu.open {
+  display: block;
+}
+
+.type-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   width: 100%;
+  padding: 0.45rem 0.85rem;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--text-body);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
 }
 
-.pokemon-grid {
+.type-option:hover {
+  background: var(--mist);
+}
+
+.type-option.selected {
+  background: var(--clay);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.type-option .type-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* =====================
+   Cards Section
+   ===================== */
+.cards-section {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 5rem;
+}
+
+.cards-section-header {
+  margin-bottom: 1.25rem;
+}
+
+.cards-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* =====================
+   Pokemon Grid & Cards
+   ===================== */
+.pokemon-grid,
+#card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4rem;
 }
 
 .pokemon-card {
   display: block;
   text-decoration: none;
-  background: linear-gradient(180deg, #0d1b3d, #060b16);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 0.6rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
   text-align: center;
-  transition: border-color 0.2s, transform 0.15s;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: box-shadow 0.25s, transform 0.25s, border-color 0.2s;
 }
 
 .pokemon-card:hover {
-  border-color: rgba(55, 167, 255, 0.5);
-  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(132,108,100,0.22), 0 4px 10px rgba(37,41,60,0.10);
+  transform: translateY(-4px) scale(1.03);
+  border-color: var(--sand-dune);
+}
+
+.pokemon-card:active {
+  transform: scale(0.97);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.card-status-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 0.18rem 0.5rem;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-status-collection {
+  background: var(--primary);
+  color: #fff;
+}
+
+.card-status-wishlist {
+  background: var(--sand-dune);
+  color: #fff;
 }
 
 .pokemon-card img {
   width: 100%;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   display: block;
 }
 
 .pokemon-card-name {
-  color: #f5f7fb;
+  color: var(--text-primary);
   font-size: 0.78rem;
-  margin: 0.5rem 0 0.1rem;
   font-weight: 600;
+  margin: 0.45rem 0 0.1rem;
+  font-family: var(--font-body);
 }
 
 .pokemon-card-number {
-  color: #91a3ba;
-  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-size: 0.7rem;
   margin: 0;
 }
 
 .loading-text,
 .error-text {
-  color: #91a3ba;
+  color: var(--text-muted);
   grid-column: 1 / -1;
   width: 100%;
   text-align: center;
-  padding: 2rem;
+  padding: 3rem;
+  font-size: 0.9rem;
 }
 
-/* Kortdetaljside */
+/* =====================
+   Footer
+   ===================== */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--surface);
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+}
 
+/* =====================
+   Sets Section (landing page)
+   ===================== */
+.sets-section {
+  padding: 3rem 2rem 5rem;
+}
+
+.sets-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.sets-section-title {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 1rem;
+}
+
+.set-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
+  text-decoration: none;
+  max-width: 500px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.18s, border-color 0.2s;
+}
+
+.set-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+  border-color: var(--sand-dune);
+}
+
+.set-card-logo img {
+  max-width: 170px;
+  width: 100%;
+  display: block;
+}
+
+.set-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.set-card-name {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.set-card-count {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  margin: 0;
+}
+
+.set-card-cta {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--sand-dune);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+/* =====================
+   Type badge colors
+   Used on card detail page (Step 3)
+   ===================== */
+.type-badge { font-family: var(--font-body); }
+
+.type-fire      { background: #DD4132; color: #fff; border-color: #DD4132; }
+.type-water     { background: #4A7FC1; color: #fff; border-color: #4A7FC1; }
+.type-grass     { background: #3F9142; color: #fff; border-color: #3F9142; }
+.type-lightning { background: #C9A500; color: #fff; border-color: #C9A500; }
+.type-psychic   { background: #C44B80; color: #fff; border-color: #C44B80; }
+.type-fighting  { background: #A8462C; color: #fff; border-color: #A8462C; }
+.type-darkness  { background: #4A4A6A; color: #fff; border-color: #4A4A6A; }
+.type-metal     { background: #7A8FA8; color: #fff; border-color: #7A8FA8; }
+.type-dragon    { background: #4F5ABE; color: #fff; border-color: #4F5ABE; }
+.type-colorless { background: #8E8878; color: #fff; border-color: #8E8878; }
+.type-fairy     { background: #C46093; color: #fff; border-color: #C46093; }
+
+/* =====================
+   Set Page & Card Detail –
+   Existing HTML (set.html / card.html)
+   Redesigned in Step 2 & 3
+   ===================== */
+
+/* Small header for set.html and card.html */
+.hero--small {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: -0.01em;
+}
+
+.logo-blue  { color: var(--primary); }
+.logo-white { color: var(--primary); }
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.back-link:hover {
+  color: var(--primary);
+}
+
+.set-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2rem 5rem;
+}
+
+.set-page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.set-page-logo {
+  max-width: 280px;
+  width: 100%;
+}
+
+/* Card detail */
 .card-detail {
   display: flex;
   gap: 2.5rem;
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 2rem 1rem 4rem;
+  padding: 2rem 2rem 5rem;
   align-items: flex-start;
 }
 
-.card-detail-image {
+.card-detail-left {
   flex-shrink: 0;
   width: 63mm;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.card-detail-image {
   max-width: 100%;
   text-align: center;
 }
@@ -301,8 +820,58 @@ footer {
 .card-detail-image img {
   max-width: 100%;
   height: auto;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   display: block;
+  box-shadow: var(--shadow-lg);
+}
+
+.card-info-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.85rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--border);
+  gap: 0.5rem;
+}
+
+.card-info-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.card-info-row--type {
+  align-items: flex-start;
+}
+
+.card-info-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+
+.card-info-value {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.card-info-types {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .card-detail-info {
@@ -311,19 +880,22 @@ footer {
 }
 
 .card-detail-name {
-  color: #ffffff;
+  font-family: var(--font-heading);
+  color: var(--text-primary);
   font-size: 1.8rem;
+  font-weight: 700;
   margin: 0 0 0.75rem;
 }
 
 .card-hp {
-  color: #c9d4e0;
-  font-size: 1.1rem;
+  color: var(--text-body);
+  font-size: 1.05rem;
   margin: 0 0 0.75rem;
 }
 
 .card-hp strong {
-  color: #37a7ff;
+  color: var(--primary);
+  font-weight: 700;
 }
 
 .card-types {
@@ -334,28 +906,40 @@ footer {
 }
 
 .type-badge {
-  background: rgba(55, 167, 255, 0.15);
-  border: 1px solid rgba(55, 167, 255, 0.4);
-  color: #37a7ff;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--mist);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
   font-weight: 600;
 }
 
+.type-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  flex-shrink: 0;
+}
+
 .card-attacks h3 {
-  color: #91a3ba;
-  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
   margin: 0 0 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.07em;
+  font-weight: 600;
 }
 
 .attack {
-  background: linear-gradient(180deg, #0d1b3d, #060b16);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
+  background: var(--subtle-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
   margin-bottom: 0.75rem;
 }
 
@@ -366,26 +950,144 @@ footer {
 }
 
 .attack-name {
-  color: #f5f7fb;
+  color: var(--text-primary);
   font-weight: 600;
   font-size: 0.95rem;
 }
 
 .attack-damage {
-  color: #37a7ff;
+  color: var(--primary);
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1rem;
 }
 
 .attack-text {
-  color: #c9d4e0;
+  color: var(--text-muted);
   font-size: 0.85rem;
   margin: 0.4rem 0 0;
   line-height: 1.5;
 }
 
+.attack-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.attack-cost {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  flex-shrink: 0;
+}
+
+.attack-cost-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.card-flavor {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  margin-top: 0.75rem;
+}
+
+.card-flavor h3 {
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 600;
+}
+
+.flavor-text {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  font-style: italic;
+  margin: 0;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+
+/* =====================
+   Responsive
+   ===================== */
+@media (max-width: 960px) {
+  .pokemon-grid,
+  #card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-text p {
+    max-width: 100%;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-visual img {
+    max-width: 240px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
+  .pokemon-grid,
+  #card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .card-detail {
     flex-direction: column;
+  }
+
+  .card-detail-left {
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+
+  .search-filter-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    min-width: unset;
+  }
+
+  .site-nav {
+    padding: 0 1rem;
+  }
+
+  .hero {
+    padding: 3rem 1rem 2.5rem;
+  }
+
+  .search-filter-section {
+    padding: 1rem;
+  }
+
+  .cards-section {
+    padding: 1.5rem 1rem 4rem;
   }
 }
