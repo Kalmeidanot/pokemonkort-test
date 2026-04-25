@@ -1,8 +1,19 @@
 function renderCollection() {
   const grid = document.getElementById('card-grid');
+  const key  = getUserStorageKey('collection');
+
+  if (!key) {
+    grid.innerHTML =
+      '<div class="empty-state">' +
+      '<p class="empty-state-title">Logg inn for å se samlingen din</p>' +
+      '<p class="empty-state-desc">Samlingen er knyttet til brukerkontoen din.</p>' +
+      '<button class="btn btn-primary" onclick="login()">Logg inn</button>' +
+      '</div>';
+    return;
+  }
 
   let cards;
-  try { cards = JSON.parse(localStorage.getItem('kortkammer_collection')) || []; }
+  try { cards = JSON.parse(localStorage.getItem(key)) || []; }
   catch { cards = []; }
 
   if (cards.length === 0) {

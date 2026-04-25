@@ -1,8 +1,19 @@
 function renderWishlist() {
   const grid = document.getElementById('card-grid');
+  const key  = getUserStorageKey('wishlist');
+
+  if (!key) {
+    grid.innerHTML =
+      '<div class="empty-state">' +
+      '<p class="empty-state-title">Logg inn for å se ønskelisten din</p>' +
+      '<p class="empty-state-desc">Ønskelisten er knyttet til brukerkontoen din.</p>' +
+      '<button class="btn btn-primary" onclick="login()">Logg inn</button>' +
+      '</div>';
+    return;
+  }
 
   let cards;
-  try { cards = JSON.parse(localStorage.getItem('kortkammer_wishlist')) || []; }
+  try { cards = JSON.parse(localStorage.getItem(key)) || []; }
   catch { cards = []; }
 
   if (cards.length === 0) {

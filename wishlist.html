@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script>(function(){var t=localStorage.getItem('kortkammer_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
 <body>
 
@@ -24,9 +25,11 @@
     </ul>
     <div class="nav-actions">
       <button class="nav-icon-btn" title="Tema" aria-label="Bytt tema">🌙</button>
-      <button class="nav-icon-btn" title="Profil" aria-label="Profil">👤</button>
+      <span id="nav-auth"></span>
     </div>
   </nav>
+
+  <script src="auth.js?v=3"></script>
 
   <main>
     <div class="cards-section">
@@ -41,6 +44,6 @@
     <p>© 2026 KortKammer</p>
   </footer>
 
-  <script src="wishlist.js"></script>
+  <script src="wishlist.js?v=3"></script>
 </body>
 </html>

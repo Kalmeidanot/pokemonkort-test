@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Min samling – KortKammer</title>
+  <title>Min profil – KortKammer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -19,7 +19,7 @@
     <ul class="nav-links">
       <li><a href="index.html">Hjem</a></li>
       <li><a href="set.html">Alle kort</a></li>
-      <li><a href="collection.html" class="active">Samlinger</a></li>
+      <li><a href="collection.html">Samlinger</a></li>
       <li><a href="wishlist.html">Ønskeliste</a></li>
       <li><a href="#">Om oss</a></li>
     </ul>
@@ -32,11 +32,25 @@
   <script src="auth.js?v=3"></script>
 
   <main>
-    <div class="cards-section">
-      <div class="cards-section-header">
-        <h2 class="cards-section-title">Min samling</h2>
+    <div class="profile-page">
+      <div class="profile-card">
+        <div class="profile-avatar">👤</div>
+        <h1 id="profile-name" class="profile-name"></h1>
+
+        <div class="profile-stats">
+          <a href="collection.html" class="profile-stat">
+            <span class="profile-stat-value" id="collection-count">0</span>
+            <span class="profile-stat-label">I samling</span>
+          </a>
+          <div class="profile-stat-divider"></div>
+          <a href="wishlist.html" class="profile-stat">
+            <span class="profile-stat-value" id="wishlist-count">0</span>
+            <span class="profile-stat-label">På ønskeliste</span>
+          </a>
+        </div>
+
+        <button id="logout-btn" class="btn btn-secondary profile-logout">Logg ut</button>
       </div>
-      <div class="pokemon-grid" id="card-grid"></div>
     </div>
   </main>
 
@@ -44,6 +58,6 @@
     <p>© 2026 KortKammer</p>
   </footer>
 
-  <script src="collection.js?v=3"></script>
+  <script src="profile.js?v=3"></script>
 </body>
 </html>

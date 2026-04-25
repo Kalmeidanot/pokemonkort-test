@@ -171,6 +171,128 @@ body {
   color: var(--primary);
 }
 
+.nav-auth-link {
+  display: inline-block;
+  padding: 0.4rem 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--primary);
+  background: var(--mist);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.nav-auth-link:hover {
+  background: var(--clay);
+  border-color: var(--sand-dune);
+}
+
+/* =====================
+   Profile page
+   ===================== */
+.profile-page {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.profile-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mist);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  font-size: 2rem;
+}
+
+.profile-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.profile-stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  background: var(--subtle-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.profile-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+
+.profile-stat:hover {
+  background: var(--mist);
+}
+
+.profile-stat-value {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.profile-stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.profile-stat-divider {
+  width: 1px;
+  height: 3rem;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.profile-logout {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.card-login-prompt {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 0 0.75rem;
+}
+
 /* =====================
    Hero (landing page)
    ===================== */
@@ -611,6 +733,12 @@ body {
   margin: 0;
 }
 
+.load-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
 .loading-text,
 .error-text {
   color: var(--text-muted);
@@ -645,6 +773,14 @@ footer {
   margin: 0 auto;
 }
 
+.sets-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
 .sets-section-title {
   font-family: var(--font-heading);
   font-size: 0.75rem;
@@ -652,7 +788,13 @@ footer {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin: 0 0 1rem;
+  margin: 0;
+}
+
+.sets-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .set-card {
@@ -1090,4 +1232,66 @@ footer {
   .cards-section {
     padding: 1.5rem 1rem 4rem;
   }
+}
+
+/* =====================
+   Dark mode
+   ===================== */
+html[data-theme="dark"] {
+  --surface:    #1E1E2C;
+  --subtle-bg:  #16161F;
+  --soft-panel: #2A2730;
+  --mist:       #252330;
+  --clay:       #2E2A38;
+  --border:     #383752;
+  --text-primary: #E4E6F2;
+  --text-body:    #A8AABF;
+  --text-muted:   #6A6C82;
+  --sand-dune:    #B89B94;
+
+  --shadow-sm:         0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md:         0 4px 12px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35);
+  --shadow-lg:         0 8px 24px rgba(0,0,0,0.6), 0 4px 8px rgba(0,0,0,0.4);
+  --shadow-card-hover: 0 12px 32px rgba(0,0,0,0.65), 0 4px 8px rgba(0,0,0,0.45);
+}
+
+/* Fix elements that use --primary as a text/icon colour */
+html[data-theme="dark"] .nav-logo,
+html[data-theme="dark"] .logo-blue,
+html[data-theme="dark"] .logo-white,
+html[data-theme="dark"] .logo-title,
+html[data-theme="dark"] .nav-auth-link,
+html[data-theme="dark"] .profile-stat-value,
+html[data-theme="dark"] .card-hp strong,
+html[data-theme="dark"] .attack-damage {
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .nav-links a:hover,
+html[data-theme="dark"] .nav-links a.active,
+html[data-theme="dark"] .nav-icon-btn:hover,
+html[data-theme="dark"] .back-link:hover,
+html[data-theme="dark"] .type-option.selected {
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .pokemon-card:hover {
+  box-shadow:
+    0 18px 44px rgba(0,0,0,0.58),
+    0 0 0 1px rgba(255,255,255,0.05),
+    0 0 28px rgba(255,255,255,0.16),
+    0 0 56px rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.26);
+}
+
+/* Pokeball logo icon */
+html[data-theme="dark"] .pokeball-o {
+  border-color: var(--border);
+}
+html[data-theme="dark"] .pokeball-o::before {
+  background: var(--border);
+}
+html[data-theme="dark"] .pokeball-o::after {
+  background: var(--surface);
+  border-color: var(--border);
 }

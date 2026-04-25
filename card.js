@@ -167,28 +167,39 @@ function renderCard(card) {
     types:   card.types || []
   };
 
+  const collKey = getUserStorageKey('collection');
+  const wishKey = getUserStorageKey('wishlist');
+
+  if (!collKey || !wishKey) {
+    detail.querySelector('.card-actions').innerHTML =
+      '<p class="card-login-prompt">Logg inn for å bruke samling og ønskeliste</p>' +
+      '<button class="btn btn-primary" onclick="login()">Logg inn</button>';
+    return;
+  }
+
   const collBtn = detail.querySelector('.btn-collection');
   const wishBtn = detail.querySelector('.btn-wishlist');
 
-  // Sett initial tilstand
-  if (isInList('kortkammer_collection', card.id)) {
+  if (isInList(collKey, card.id)) {
     collBtn.textContent = 'I samling';
     collBtn.classList.add('btn-active');
   }
-  if (isInList('kortkammer_wishlist', card.id)) {
+  if (isInList(wishKey, card.id)) {
     wishBtn.textContent = 'I ønskeliste';
     wishBtn.classList.add('btn-active');
   }
 
   collBtn.addEventListener('click', () => {
-    const added = toggleInList('kortkammer_collection', cardData);
+    const added = toggleInList(collKey, cardData);
     collBtn.textContent = added ? 'I samling' : 'Legg til i samling';
     collBtn.classList.toggle('btn-active', added);
+    window.dispatchEvent(new Event('kortkammerUpdated'));
   });
 
   wishBtn.addEventListener('click', () => {
-    const added = toggleInList('kortkammer_wishlist', cardData);
+    const added = toggleInList(wishKey, cardData);
     wishBtn.textContent = added ? 'I ønskeliste' : 'Legg til ønskeliste';
     wishBtn.classList.toggle('btn-active', added);
+    window.dispatchEvent(new Event('kortkammerUpdated'));
   });
 }
