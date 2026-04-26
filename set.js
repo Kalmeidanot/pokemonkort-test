@@ -2,6 +2,7 @@ let allCards = [];
 let activeCards = [];
 let visibleCardCount = 40;
 let currentSet = null;
+let currentVariant = null;
 
 const CARDS_PER_PAGE = 40;
 
@@ -37,6 +38,25 @@ function getStoredIds(key) {
   catch { return []; }
 }
 
+function getStoredQuantities(key) {
+  try {
+    return (JSON.parse(localStorage.getItem(key)) || []).reduce((map, card) => {
+      map[card.id] = Number(card.quantity) || 1;
+      return map;
+    }, {});
+  } catch {
+    return {};
+  }
+}
+
+function getCurrentImageFolder() {
+  return currentVariant?.imageFolder || currentSet.imageFolder;
+}
+
+function getCardAppId(card) {
+  return currentVariant ? card.id + '-' + currentVariant.id : card.id;
+}
+
 function getLocalCardImage(card) {
   const numStr   = card.number.replace(/[^0-9]/g, '');
   const padded   = numStr && parseInt(numStr) > 0
@@ -47,7 +67,7 @@ function getLocalCardImage(card) {
     .replace(/[''']/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
-  return currentSet.imageFolder + '/' + padded + '-' + name + '.png';
+  return getCurrentImageFolder() + '/' + padded + '-' + name + '.png';
 }
 
 function readCachedCards() {
@@ -161,22 +181,23 @@ function renderCards(cards, resetPage = true) {
 
   const collKey = getUserStorageKey('collection');
   const wishKey = getUserStorageKey('wishlist');
-  const collIds = collKey ? getStoredIds(collKey) : [];
-  const wishIds = wishKey ? getStoredIds(wishKey) : [];
+  const collQty = collKey ? getStoredQuantities(collKey) : {};
+  const wishQty = wishKey ? getStoredQuantities(wishKey) : {};
 
   cards.slice(0, visibleCardCount).forEach(card => {
+    const appId = getCardAppId(card);
     let badge = '';
-    if (collIds.includes(card.id)) {
-      badge = '<span class="card-status-badge card-status-collection">✓ I samling</span>';
-    } else if (wishIds.includes(card.id)) {
-      badge = '<span class="card-status-badge card-status-wishlist">♡ Ønsket</span>';
+    if (collQty[appId]) {
+      badge = '<span class="card-status-badge card-status-collection">✓ I samling' + (collQty[appId] > 1 ? ' (' + collQty[appId] + ')' : '') + '</span>';
+    } else if (wishQty[appId]) {
+      badge = '<span class="card-status-badge card-status-wishlist">♡ Ønsket' + (wishQty[appId] > 1 ? ' (' + wishQty[appId] + ')' : '') + '</span>';
     }
 
     const localSrc = getLocalCardImage(card);
     const a = document.createElement('a');
     a.href = `card.html?id=${card.id}`;
     a.className = 'pokemon-card';
-    a.dataset.cardId = card.id;
+    a.dataset.cardId = appId;
     a.innerHTML =
       badge +
       `<img src="${localSrc}" onerror="this.onerror=null;this.src='${card.images.large}'" alt="${card.name}" loading="lazy" decoding="async" />
@@ -191,22 +212,22 @@ function renderCards(cards, resetPage = true) {
 function updateCardBadges() {
   const collKey = getUserStorageKey('collection');
   const wishKey = getUserStorageKey('wishlist');
-  const collIds = collKey ? getStoredIds(collKey) : [];
-  const wishIds = wishKey ? getStoredIds(wishKey) : [];
+  const collQty = collKey ? getStoredQuantities(collKey) : {};
+  const wishQty = wishKey ? getStoredQuantities(wishKey) : {};
 
   document.querySelectorAll('.pokemon-card[data-card-id]').forEach(el => {
     const id = el.dataset.cardId;
     const existing = el.querySelector('.card-status-badge');
     if (existing) existing.remove();
-    if (collIds.includes(id)) {
+    if (collQty[id]) {
       const span = document.createElement('span');
       span.className = 'card-status-badge card-status-collection';
-      span.textContent = '✓ I samling';
+      span.textContent = '✓ I samling' + (collQty[id] > 1 ? ' (' + collQty[id] + ')' : '');
       el.prepend(span);
-    } else if (wishIds.includes(id)) {
+    } else if (wishQty[id]) {
       const span = document.createElement('span');
       span.className = 'card-status-badge card-status-wishlist';
-      span.textContent = '♡ Ønsket';
+      span.textContent = '♡ Ønsket' + (wishQty[id] > 1 ? ' (' + wishQty[id] + ')' : '');
       el.prepend(span);
     }
   });
@@ -293,6 +314,34 @@ function initTypeDropdown() {
   });
 }
 
+function initVariantSelect() {
+  const select = document.getElementById('variant-select');
+  const wrap = document.getElementById('variant-select-wrap');
+  if (!select) return;
+
+  const variants = currentSet.variants || [];
+  if (variants.length === 0) {
+    if (wrap) wrap.hidden = true;
+    currentVariant = null;
+    return;
+  }
+
+  select.innerHTML = variants
+    .map(variant => `<option value="${variant.id}">${variant.name}</option>`)
+    .join('');
+
+  currentVariant = variants[0];
+  select.value = currentVariant.id;
+  if (wrap) wrap.hidden = false;
+
+  select.addEventListener('change', () => {
+    currentVariant = variants.find(variant => variant.id === select.value) || variants[0];
+    if (allCards.length > 0 || activeCards.length > 0) {
+      renderCards(activeCards, false);
+    }
+  });
+}
+
 window.addEventListener('storage', (event) => {
   const collKey = getUserStorageKey('collection');
   const wishKey = getUserStorageKey('wishlist');
@@ -306,6 +355,7 @@ window.addEventListener('kortkammerUpdated', updateCardBadges);
 document.addEventListener('DOMContentLoaded', () => {
   currentSet = getSelectedSet();
   initSetHeader();
+  initVariantSelect();
   loadCards();
   initTypeDropdown();
 

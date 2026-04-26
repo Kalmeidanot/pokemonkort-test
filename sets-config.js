@@ -8,6 +8,23 @@ window.KORTKAMMER_SETS = [
     printedTotal: 102,
     logo: 'https://images.pokemontcg.io/base1/logo.png',
     imageFolder: 'images/cards/base1/large',
+    variants: [
+      {
+        id: 'unlimited',
+        name: 'Unlimited',
+        imageFolder: 'images/cards/base1/unlimited'
+      },
+      {
+        id: 'shadowless',
+        name: 'Shadowless',
+        imageFolder: 'images/cards/base1/shadowless'
+      },
+      {
+        id: '1st-edition',
+        name: '1st Edition',
+        imageFolder: 'images/cards/base1/1st-edition'
+      }
+    ],
     cacheKey: 'kortkammer_cards_base1',
     cacheTimeKey: 'kortkammer_cards_base1_cached_at',
     href: 'set.html?set=base'

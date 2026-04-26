@@ -1,5 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 const cardId = params.get("id");
+const requestedVariant = params.get("variant");
 const detail = document.getElementById("card-detail");
 
 if (!cardId) {
@@ -43,15 +44,57 @@ function saveList(key, list) {
 function isInList(key, id) {
   return getList(key).some(c => c.id === id);
 }
-function toggleInList(key, cardData) {
+function getQuantityInList(key, id) {
+  const card = getList(key).find(c => c.id === id);
+  return card ? (Number(card.quantity) || 1) : 0;
+}
+function addToList(key, cardData) {
   const list = getList(key);
   const idx  = list.findIndex(c => c.id === cardData.id);
-  if (idx >= 0) { list.splice(idx, 1); } else { list.push(cardData); }
+  if (idx >= 0) {
+    list[idx].quantity = (Number(list[idx].quantity) || 1) + 1;
+  } else {
+    list.push({ ...cardData, quantity: 1 });
+  }
   saveList(key, list);
-  return idx < 0; // true = lagt til, false = fjernet
+  return idx >= 0 ? list[idx].quantity : 1;
+}
+function decreaseInList(key, id) {
+  const list = getList(key);
+  const idx = list.findIndex(c => c.id === id);
+  if (idx < 0) return 0;
+
+  const quantity = (Number(list[idx].quantity) || 1) - 1;
+  if (quantity <= 0) {
+    list.splice(idx, 1);
+  } else {
+    list[idx].quantity = quantity;
+  }
+  saveList(key, list);
+  return quantity > 0 ? quantity : 0;
 }
 
-function getLocalCardImage(card) {
+function getSetConfig(card) {
+  const sets = window.KORTKAMMER_SETS || [];
+  return sets.find(set => card.set && set.apiId === card.set.id) || null;
+}
+
+function getCardVariantOptions(card) {
+  const setConfig = getSetConfig(card);
+  return setConfig?.variants || [];
+}
+
+function getRequestedVariant(variants) {
+  return variants.find(variant => variant.id === requestedVariant) || variants[0] || null;
+}
+
+function getCardAppId(card, variant) {
+  return variant ? card.id + '-' + variant.id : card.id;
+}
+
+function getLocalCardImage(card, variant) {
+  const setConfig = getSetConfig(card);
+  const imageFolder = variant?.imageFolder || setConfig?.imageFolder || 'images/cards/sv151/large';
   const numStr = card.number.replace(/[^0-9]/g, '');
   const padded = numStr && parseInt(numStr) > 0
     ? String(parseInt(numStr)).padStart(3, '0')
@@ -61,7 +104,29 @@ function getLocalCardImage(card) {
     .replace(/[''']/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
-  return 'images/cards/sv151/large/' + padded + '-' + name + '.png';
+  return imageFolder + '/' + padded + '-' + name + '.png';
+}
+
+function getStoredCardData(card, variant) {
+  const appId = getCardAppId(card, variant);
+  const cardData = {
+    id:      appId,
+    name:    card.name,
+    number:  card.number,
+    setName: card.set ? card.set.name : "",
+    image:   variant ? getLocalCardImage(card, variant) : card.images.small,
+    types:   card.types || [],
+    quantity: 1
+  };
+
+  if (variant) {
+    cardData.appId = appId;
+    cardData.apiId = card.id;
+    cardData.variant = variant.id;
+    cardData.setId = card.set ? card.set.id : "";
+  }
+
+  return cardData;
 }
 
 function typeBadge(t) {
@@ -84,6 +149,9 @@ function costIcons(cost) {
 }
 
 function renderCard(card) {
+  const variantOptions = getCardVariantOptions(card);
+  let currentVariant = getRequestedVariant(variantOptions);
+
   // Types (høyre side)
   let typesHtml = "";
   if (card.types && card.types.length > 0) {
@@ -136,16 +204,42 @@ function renderCard(card) {
 
   const actionsHtml =
     "<div class='card-actions'>" +
+    "<div class='card-action-group'>" +
     "<button class='btn btn-primary btn-collection'>Legg til i samling</button>" +
+    "<div class='quantity-control card-quantity-control' data-list='collection' hidden>" +
+    "<button class='quantity-control-btn quantity-decrease' type='button' aria-label='Reduser antall i samling'>-</button>" +
+    "<span class='quantity-control-value'>0</span>" +
+    "<button class='quantity-control-btn quantity-increase' type='button' aria-label='Øk antall i samling'>+</button>" +
+    "</div>" +
+    "</div>" +
+    "<div class='card-action-group'>" +
     "<button class='btn btn-secondary btn-wishlist'>Legg til ønskeliste</button>" +
+    "<div class='quantity-control card-quantity-control' data-list='wishlist' hidden>" +
+    "<button class='quantity-control-btn quantity-decrease' type='button' aria-label='Reduser antall i ønskeliste'>-</button>" +
+    "<span class='quantity-control-value'>0</span>" +
+    "<button class='quantity-control-btn quantity-increase' type='button' aria-label='Øk antall i ønskeliste'>+</button>" +
+    "</div>" +
+    "</div>" +
     "</div>";
 
-  const localSrc    = getLocalCardImage(card);
+  const variantHtml = variantOptions.length
+    ? "<div class='card-info-panel card-variant-panel'>" +
+      "<label class='card-info-row card-variant-row' for='card-variant-select'>" +
+      "<span class='card-info-label'>Variant</span>" +
+      "<select id='card-variant-select' class='sort-select'>" +
+      variantOptions.map(variant => "<option value='" + variant.id + "'>" + variant.name + "</option>").join("") +
+      "</select>" +
+      "</label>" +
+      "</div>"
+    : "";
+
+  const localSrc    = getLocalCardImage(card, currentVariant);
   const fallbackSrc = card.images.large || card.images.small;
 
   detail.innerHTML =
     "<div class='card-detail-left'>" +
-    "<div class='card-detail-image'><img src='" + localSrc + "' onerror=\"this.onerror=null;this.src='" + fallbackSrc + "'\" alt='" + card.name + "' /></div>" +
+    "<div class='card-detail-image'><img id='card-detail-img' src='" + localSrc + "' alt='" + card.name + "' /></div>" +
+    variantHtml +
     infoPanelHtml +
     "</div>" +
     "<div class='card-detail-info'>" +
@@ -157,15 +251,27 @@ function renderCard(card) {
     actionsHtml +
     "</div>";
 
-  // Kortdata som lagres
-  const cardData = {
-    id:      card.id,
-    name:    card.name,
-    number:  card.number,
-    setName: card.set ? card.set.name : "",
-    image:   card.images.small,
-    types:   card.types || []
-  };
+  const cardImage = detail.querySelector('#card-detail-img');
+  function updateCardImage() {
+    if (!cardImage) return;
+    cardImage.onerror = function() {
+      this.onerror = null;
+      this.src = fallbackSrc;
+    };
+    cardImage.src = getLocalCardImage(card, currentVariant);
+  }
+  updateCardImage();
+
+  const variantSelect = detail.querySelector('#card-variant-select');
+  let updateActionButtons = function() {};
+  if (variantSelect) {
+    variantSelect.value = currentVariant.id;
+    variantSelect.addEventListener('change', () => {
+      currentVariant = variantOptions.find(variant => variant.id === variantSelect.value) || variantOptions[0];
+      updateCardImage();
+      updateActionButtons();
+    });
+  }
 
   const collKey = getUserStorageKey('collection');
   const wishKey = getUserStorageKey('wishlist');
@@ -179,27 +285,67 @@ function renderCard(card) {
 
   const collBtn = detail.querySelector('.btn-collection');
   const wishBtn = detail.querySelector('.btn-wishlist');
+  const collControl = detail.querySelector('.quantity-control[data-list="collection"]');
+  const wishControl = detail.querySelector('.quantity-control[data-list="wishlist"]');
 
-  if (isInList(collKey, card.id)) {
-    collBtn.textContent = 'I samling';
-    collBtn.classList.add('btn-active');
-  }
-  if (isInList(wishKey, card.id)) {
-    wishBtn.textContent = 'I ønskeliste';
-    wishBtn.classList.add('btn-active');
-  }
+  updateActionButtons = function() {
+    const appId = getCardAppId(card, currentVariant);
+    const collectionQty = getQuantityInList(collKey, appId);
+    const wishlistQty = getQuantityInList(wishKey, appId);
+
+    collBtn.textContent = collectionQty > 0 ? 'I samling (' + collectionQty + ')' : 'Legg til i samling';
+    collBtn.classList.toggle('btn-active', collectionQty > 0);
+    wishBtn.textContent = wishlistQty > 0 ? 'I ønskeliste (' + wishlistQty + ')' : 'Legg til ønskeliste';
+    wishBtn.classList.toggle('btn-active', wishlistQty > 0);
+    updateQuantityControl(collControl, collectionQty);
+    updateQuantityControl(wishControl, wishlistQty);
+  };
+  updateActionButtons();
 
   collBtn.addEventListener('click', () => {
-    const added = toggleInList(collKey, cardData);
-    collBtn.textContent = added ? 'I samling' : 'Legg til i samling';
-    collBtn.classList.toggle('btn-active', added);
-    window.dispatchEvent(new Event('kortkammerUpdated'));
+    if (getQuantityInList(collKey, getCardAppId(card, currentVariant)) === 0) {
+      addToList(collKey, getStoredCardData(card, currentVariant));
+      updateActionButtons();
+      window.dispatchEvent(new Event('kortkammerUpdated'));
+    }
   });
 
   wishBtn.addEventListener('click', () => {
-    const added = toggleInList(wishKey, cardData);
-    wishBtn.textContent = added ? 'I ønskeliste' : 'Legg til ønskeliste';
-    wishBtn.classList.toggle('btn-active', added);
+    if (getQuantityInList(wishKey, getCardAppId(card, currentVariant)) === 0) {
+      addToList(wishKey, getStoredCardData(card, currentVariant));
+      updateActionButtons();
+      window.dispatchEvent(new Event('kortkammerUpdated'));
+    }
+  });
+
+  collControl?.querySelector('.quantity-increase')?.addEventListener('click', () => {
+    addToList(collKey, getStoredCardData(card, currentVariant));
+    updateActionButtons();
     window.dispatchEvent(new Event('kortkammerUpdated'));
   });
+
+  collControl?.querySelector('.quantity-decrease')?.addEventListener('click', () => {
+    decreaseInList(collKey, getCardAppId(card, currentVariant));
+    updateActionButtons();
+    window.dispatchEvent(new Event('kortkammerUpdated'));
+  });
+
+  wishControl?.querySelector('.quantity-increase')?.addEventListener('click', () => {
+    addToList(wishKey, getStoredCardData(card, currentVariant));
+    updateActionButtons();
+    window.dispatchEvent(new Event('kortkammerUpdated'));
+  });
+
+  wishControl?.querySelector('.quantity-decrease')?.addEventListener('click', () => {
+    decreaseInList(wishKey, getCardAppId(card, currentVariant));
+    updateActionButtons();
+    window.dispatchEvent(new Event('kortkammerUpdated'));
+  });
+}
+
+function updateQuantityControl(control, quantity) {
+  if (!control) return;
+  control.hidden = quantity <= 0;
+  const value = control.querySelector('.quantity-control-value');
+  if (value) value.textContent = quantity;
 }
