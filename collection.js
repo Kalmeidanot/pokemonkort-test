@@ -1,8 +1,11 @@
+let currentFilter = 'all';
+
 function renderCollection() {
   const grid = document.getElementById('card-grid');
   const key  = getUserStorageKey('collection');
 
   if (!key) {
+    updateSetFilter([]);
     grid.innerHTML =
       '<div class="empty-state">' +
       '<p class="empty-state-title">Logg inn for å se samlingen din</p>' +
@@ -15,6 +18,8 @@ function renderCollection() {
   let cards;
   try { cards = JSON.parse(localStorage.getItem(key)) || []; }
   catch { cards = []; }
+
+  updateSetFilter(cards);
 
   if (cards.length === 0) {
     grid.innerHTML =
@@ -29,8 +34,21 @@ function renderCollection() {
     return;
   }
 
+  const visibleCards = currentFilter === 'all'
+    ? cards
+    : cards.filter(card => getStoredCardSetId(card) === currentFilter);
+
   grid.innerHTML = '';
-  cards.forEach(card => {
+  if (visibleCards.length === 0) {
+    grid.innerHTML =
+      '<div class="empty-state">' +
+      '<p class="empty-state-title">Ingen kort i dette settet</p>' +
+      '<p class="empty-state-desc">Velg et annet sett eller vis alle kort.</p>' +
+      '</div>';
+    return;
+  }
+
+  visibleCards.forEach(card => {
     const apiId = getStoredCardApiId(card);
     const href = card.variant
       ? 'card.html?id=' + encodeURIComponent(apiId) + '&variant=' + encodeURIComponent(card.variant)
@@ -73,6 +91,36 @@ function renderCollection() {
 
 function getCardQuantity(card) {
   return Number(card.quantity) || 1;
+}
+
+function updateSetFilter(cards) {
+  const select = document.getElementById('set-filter');
+  if (!select) return;
+
+  const setIds = [...new Set(cards.map(getStoredCardSetId).filter(Boolean))].sort();
+  if (currentFilter !== 'all' && !setIds.includes(currentFilter)) {
+    currentFilter = 'all';
+  }
+
+  select.innerHTML =
+    '<option value="all">Alle sett</option>' +
+    setIds.map(setId => '<option value="' + setId + '">' + getSetDisplayName(setId) + '</option>').join('');
+  select.value = currentFilter;
+  select.hidden = cards.length === 0;
+}
+
+function getSetDisplayName(setId) {
+  const sets = window.KORTKAMMER_SETS || [];
+  const set = sets.find(item => item.apiId === setId);
+  return set ? set.name : setId;
+}
+
+function getStoredCardSetId(card) {
+  if (card.setId) return card.setId;
+
+  const apiId = getStoredCardApiId(card);
+  const dashIndex = apiId.indexOf('-');
+  return dashIndex > 0 ? apiId.slice(0, dashIndex) : '';
 }
 
 function decreaseQuantity(key, cardId) {
@@ -151,4 +199,13 @@ function buildLocalVariantImage(card) {
   return 'images/cards/' + card.setId + '/' + card.variant + '/' + padded + '-' + name + '.png';
 }
 
-document.addEventListener('DOMContentLoaded', renderCollection);
+document.addEventListener('DOMContentLoaded', () => {
+  const select = document.getElementById('set-filter');
+  if (select) {
+    select.addEventListener('change', () => {
+      currentFilter = select.value;
+      renderCollection();
+    });
+  }
+  renderCollection();
+});

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ønskeliste – KortKammer</title>
+  <title>Sett – KortKammer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -18,9 +18,9 @@
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Hjem</a></li>
-      <li><a href="sets.html">Sett</a></li>
+      <li><a href="sets.html" class="active">Sett</a></li>
       <li><a href="collection.html">Samlinger</a></li>
-      <li><a href="wishlist.html" class="active">Ønskeliste</a></li>
+      <li><a href="wishlist.html">Ønskeliste</a></li>
       <li><a href="#">Om oss</a></li>
     </ul>
     <div class="nav-actions">
@@ -32,13 +32,18 @@
   <script src="auth.js?v=3"></script>
 
   <main>
-    <div class="cards-section">
-      <div class="cards-section-header">
-        <h2 class="cards-section-title">Ønskeliste</h2>
-        <select id="set-filter" class="sort-select list-filter-select" aria-label="Filtrer ønskeliste etter sett"></select>
+    <section class="sets-section">
+      <div class="sets-inner">
+        <div class="sets-section-header">
+          <h2 class="sets-section-title">Tilgjengelige sett</h2>
+          <select id="sets-sort" class="sort-select" aria-label="Sorter sett">
+            <option value="oldest">Eldst først</option>
+            <option value="newest">Nyest først</option>
+          </select>
+        </div>
+        <div id="sets-list" class="sets-list"></div>
       </div>
-      <div class="pokemon-grid" id="card-grid"></div>
-    </div>
+    </section>
   </main>
 
   <footer>
@@ -46,6 +51,6 @@
   </footer>
 
   <script src="sets-config.js?v=4"></script>
-  <script src="wishlist.js?v=9"></script>
+  <script src="sets.js?v=1"></script>
 </body>
 </html>

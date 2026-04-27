@@ -40,6 +40,6 @@ window.KORTKAMMER_SETS = [
     imageFolder: 'images/cards/sv151/large',
     cacheKey: 'kortkammer_cards_sv151',
     cacheTimeKey: 'kortkammer_cards_sv151_cached_at',
-    href: 'set.html'
+    href: 'set.html?set=sv151'
   }
 ];
