@@ -2,6 +2,35 @@ function getListingIdFromUrl() {
   return new URLSearchParams(window.location.search).get('id');
 }
 
+const PRODUCT_FILTERS = [
+  { value: 'all', label: 'Alle' },
+  { value: 'Fastprisannonse', label: 'Fastpris' },
+  { value: 'Claim-salg', label: 'Claim' },
+  { value: 'Auksjon', label: 'Auksjon' },
+  { value: 'Auksjon uten minstepris', label: 'Auksjon uten minstepris' },
+  { value: 'Lynauksjon', label: 'Lynauksjon' },
+  { value: 'ended', label: 'Avsluttet' }
+];
+
+let currentProductFilter = 'all';
+
+function getVisibleProducts(products) {
+  if (currentProductFilter === 'all') return products;
+  if (currentProductFilter === 'ended') return products.filter(product => product.status === 'ended');
+  return products.filter(product => product.saleType === currentProductFilter && product.status !== 'ended');
+}
+
+function renderProductFilters() {
+  return (
+    '<div class="listing-product-filters" role="tablist" aria-label="Filtrer produkter i salgsbordet">' +
+      PRODUCT_FILTERS.map(filter => {
+        const activeClass = filter.value === currentProductFilter ? ' active' : '';
+        return '<button class="listing-filter-tab' + activeClass + '" type="button" data-product-filter="' + escapeHtml(filter.value) + '">' + escapeHtml(filter.label) + '</button>';
+      }).join('') +
+    '</div>'
+  );
+}
+
 function renderProductCard(product) {
   const actionLabel = getProductActionLabel(product);
   const variant = product.variant ? '<p class="listing-product-variant">' + escapeHtml(product.variant) + '</p>' : '';
@@ -32,14 +61,15 @@ function renderListingPage() {
   if (!listing) {
     container.innerHTML =
       '<div class="empty-state">' +
-        '<p class="empty-state-title">Oppføringen finnes ikke</p>' +
-        '<p class="empty-state-desc">Gå tilbake til forsiden og velg en annen oppføring.</p>' +
+        '<p class="empty-state-title">Salgsbordet finnes ikke</p>' +
+        '<p class="empty-state-desc">Gå tilbake til forsiden og velg et annet salgsbord.</p>' +
         '<a class="btn btn-secondary" href="index.html">Til forsiden</a>' +
       '</div>';
     return;
   }
 
   const products = getListingProducts(listing);
+  const visibleProducts = getVisibleProducts(products);
   const typeSummary = getSaleTypesSummary(listing);
   const productCountLabel = products.length === 1 ? '1 produkt' : products.length + ' produkter';
 
@@ -48,19 +78,32 @@ function renderListingPage() {
     '<div class="listing-detail-header">' +
       '<div>' +
         '<p class="listing-seller">' + escapeHtml(listing.sellerName) + '</p>' +
-        '<h1 class="listing-detail-title">' + escapeHtml(listing.title) + '</h1>' +
+        '<h1 class="listing-detail-title">Salgsbord: ' + escapeHtml(listing.title) + '</h1>' +
         '<p class="listing-meta-line">' + escapeHtml(productCountLabel + (typeSummary ? ' · ' + typeSummary : '')) + '</p>' +
       '</div>' +
       '<div class="listing-detail-meta">' +
-        '<span class="listing-type">' + escapeHtml(listing.listingMode || 'single-products') + '</span>' +
+        '<span class="listing-type">Salgsbord</span>' +
         '<span class="listing-status listing-status-' + escapeHtml(listing.status) + '">' + escapeHtml(getStatusLabel(listing.status)) + '</span>' +
       '</div>' +
     '</div>' +
+    renderProductFilters() +
     '<div class="listing-detail-grid">' +
-      products.map(renderProductCard).join('') +
+      (visibleProducts.length
+        ? visibleProducts.map(renderProductCard).join('')
+        : '<div class="empty-state"><p class="empty-state-title">Ingen produkter funnet</p><p class="empty-state-desc">Velg et annet filter.</p></div>') +
     '</div>';
 
+  bindProductFilters();
   bindProductActions(listing, products);
+}
+
+function bindProductFilters() {
+  document.querySelectorAll('.listing-filter-tab').forEach(button => {
+    button.addEventListener('click', () => {
+      currentProductFilter = button.dataset.productFilter || 'all';
+      renderListingPage();
+    });
+  });
 }
 
 function bindProductActions(listing, products) {

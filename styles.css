@@ -456,6 +456,29 @@ body {
   gap: 0.3rem;
 }
 
+.carousel-count {
+  position: absolute;
+  left: 0.55rem;
+  top: 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: rgba(255,255,255,0.92);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: var(--shadow-sm);
+}
+
+.carousel-more {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
 .carousel-dot {
   width: 0.45rem;
   height: 0.45rem;
@@ -573,6 +596,33 @@ body {
   gap: 0.5rem;
   flex-wrap: wrap;
   justify-content: flex-end;
+}
+
+.listing-product-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 1rem 0 0.25rem;
+}
+
+.listing-filter-tab {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  color: var(--text-body);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.55rem 0.75rem;
+}
+
+.listing-filter-tab:hover,
+.listing-filter-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
 }
 
 .listing-detail-grid {
@@ -1715,6 +1765,10 @@ html[data-theme="dark"] .nav-icon-btn:hover,
 html[data-theme="dark"] .back-link:hover,
 html[data-theme="dark"] .type-option.selected {
   color: var(--text-primary);
+}
+
+html[data-theme="dark"] .carousel-count {
+  background: rgba(30,30,44,0.94);
 }
 
 html[data-theme="dark"] .pokemon-card:hover {

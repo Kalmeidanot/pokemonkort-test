@@ -329,6 +329,8 @@ function renderCarousel(listing) {
   const products = getListingProducts(listing);
   const activeIndex = getCarouselIndex(listing);
   const activeCard = products[activeIndex] || {};
+  const countLabel = products.length > 1 ? (activeIndex + 1) + ' av ' + products.length : '1 av 1';
+  const moreLabel = products.length > 1 ? '<span class="carousel-more">+' + (products.length - 1) + ' flere</span>' : '';
   const dots = products.map((card, index) => {
     const activeClass = index === activeIndex ? ' active' : '';
     return '<button class="carousel-dot' + activeClass + '" type="button" data-listing-id="' + escapeHtml(listing.id) + '" data-carousel-index="' + index + '" aria-label="Vis ' + escapeHtml(card.name) + '"></button>';
@@ -342,6 +344,7 @@ function renderCarousel(listing) {
   return (
     '<div class="listing-carousel">' +
       '<img src="' + escapeHtml(getCardImage(activeCard)) + '" onerror="this.onerror=null;this.src=\'' + IMAGE_PLACEHOLDER + '\'" alt="' + escapeHtml(activeCard.name || 'Kortbilde') + '" loading="lazy" />' +
+      '<div class="carousel-count">' + escapeHtml(countLabel) + moreLabel + '</div>' +
       controls +
     '</div>'
   );
@@ -357,7 +360,7 @@ function renderMarketplaceListings() {
   if (listings.length === 0) {
     grid.innerHTML =
       '<div class="empty-state">' +
-      '<p class="empty-state-title">Ingen oppføringer funnet</p>' +
+      '<p class="empty-state-title">Ingen salgsbord funnet</p>' +
       '<p class="empty-state-desc">Prøv et annet filter.</p>' +
       '</div>';
     return;
@@ -380,7 +383,7 @@ function renderMarketplaceListings() {
       '<h3 class="listing-title">' + escapeHtml(listing.title) + '</h3>' +
       '<p class="listing-meta-line">' + escapeHtml(typesSummary) + '</p>' +
       (fromPrice ? '<p class="listing-price">' + escapeHtml(fromPrice) + '</p>' : '') +
-      '<button class="btn btn-secondary listing-action" type="button" data-listing-id="' + escapeHtml(listing.id) + '">Se oppføring</button>';
+      '<button class="btn btn-secondary listing-action" type="button" data-listing-id="' + escapeHtml(listing.id) + '">Se salgsbod</button>';
     grid.appendChild(article);
   });
 
